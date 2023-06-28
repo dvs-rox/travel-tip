@@ -1,6 +1,7 @@
 import { placeService } from '../services/place.service.js'
 import { mapService } from '../services/map.service.js'
 import { searchService } from '../services/search.service.js'
+import { weatherService } from '../services/weather.service.js'
 
 window.onload = onInit
 window.onAddPlace = onAddPlace
@@ -12,6 +13,7 @@ window.onToggleModal = onToggleModal
 window.onSearch = onSearch
 
 function onInit() {
+    document.querySelector('[name="searchTxt"]').value = ''
     console.log('window.currLatLng:', window.currLatLng)
     mapService.initMap()
         .then(() => {
@@ -50,6 +52,7 @@ function onAddPlace(ev) {
 
     })
     // renderPlacesList)
+    onToggleModal()
 }
 
 function onRemovePlace(placeId) {
@@ -72,6 +75,7 @@ function onGetUserPos() {
                 `
                 You Are At<br>Latitude: ${pos.coords.latitude}<br>Longitude: ${pos.coords.longitude}`
             //TODO: pan map to location
+            onPanTo(pos.coords.latitude,pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -88,6 +92,9 @@ function onSearch(ev) {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
     searchService.searchByAddress(val).then(mapService.panTo)
+    weatherService.getWeather(val).then(res=>{
+        console.log('val:', res)
+    })
 }
 
 
