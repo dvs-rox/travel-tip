@@ -79,7 +79,7 @@ function onPanTo(lat, lng) {
 function onSearch(ev){
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
-    searchService.searchByAddress(val).then(console.log)
+    searchService.searchByAddress(val).then(mapService.panTo)
 }
 
 
