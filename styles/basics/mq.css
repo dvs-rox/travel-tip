@@ -1,0 +1,11 @@
+@media (min-width: 640px) {
+    .main-layout{
+        grid-template-areas:
+        "header header"
+        "sidebar map-container"
+        "sidebar map-controls"
+        "footer footer"
+        ;
+    }
+
+}

@@ -1,0 +1,29 @@
+.main-layout{
+    grid-template-areas:
+    "header"
+    "map"
+    "controls"
+    "sidebar"
+    "footer"
+    ;
+}
+
+.main-header{
+    grid-area: header;
+}
+
+.map-container{
+    grid-area:map ;
+}
+
+.map-controls{
+    grid-area:controls ;
+}
+
+.sidebar-container{
+    grid-area: sidebar;
+}
+
+.main-footer{
+    grid-area: footer;
+}
