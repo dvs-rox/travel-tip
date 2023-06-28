@@ -51,7 +51,8 @@ function onGetUserPos() {
 }
 function onPanTo(pos) {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(pos.lat, pos.lng)
+    // mapService.panTo(35.6895, 139.6917)   TO TOKYO...
 }
 
 
