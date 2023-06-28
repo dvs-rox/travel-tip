@@ -54,7 +54,7 @@ function onAddPlace(ev) {
         placeService.getPlaces().then(places => renderPlacesList(places))
 
     })
-    // renderPlacesList)
+
 }
 
 function onRemovePlace(placeId) {
@@ -92,7 +92,14 @@ function onPanTo(lat, lng) {
 function onSearch(ev) {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
-    searchService.searchByAddress(val).then(mapService.panTo)
+    searchService.searchByAddress(val)
+        .then(res => {
+            window.currLatLng = res
+            mapService.panTo(res.lat, res.lng)
+            return res
+        })
+        .then(res => mapService.addMarker({ lat: res.lat, lng: res.lng }, val))
+
 }
 
 
