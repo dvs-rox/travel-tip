@@ -20,7 +20,7 @@ function getPlaces() {
 //     id,
 //     name,
 //     lat,
-//     lng,
+//     lng,~
 //     weather,
 //     createdAt,
 //     updatedAt
