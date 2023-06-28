@@ -28,8 +28,8 @@ function onAddPlace(ev) {
     ev.preventDefault()
     console.log('Adding a place')
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
-    placeService.addPlace(window.currLatLng, 'puki')
-    renderPlacesList()
+    placeService.addPlace(window.currLatLng, 'puki').then(renderPlacesList)
+    // ()
 }
 
 function onRemovePlace(placeId) {
@@ -67,10 +67,8 @@ function onPanTo(pos) {
 
 //PLACES STUFF AREA
 
-function renderPlacesList(places) {
-    if (!places) {
-        places = placeService.getPlaces().then(res => res.value)
-    }
+function renderPlacesList() {
+    const places = placeService.getPlaces().then(res => res.data)
     console.log(places)
     const strHTMLs = places.map(place => {
         return `

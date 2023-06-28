@@ -46,7 +46,7 @@ function addPlace(latLng, name) {
         weather: 'mediocre',
         createdAt: Date.now()
     }
-    storageService.post(PLACES_KEY, place)
+    return storageService.post(PLACES_KEY, place)
 }
 function removePlace(placeId){
     storageService.remove(PLACES_KEY,placeId).then(console.log)
