@@ -32,7 +32,7 @@ const places = [
 function getPlaces() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(places)
+            resolve(storageService.query(PLACES_KEY))
         }, 2000)
     })
 }
@@ -48,7 +48,6 @@ function addPlace(latLng, name) {
     }
     storageService.post(PLACES_KEY, place)
 }
-
 function removePlace(placeId){
     storageService.remove(PLACES_KEY,placeId).then(console.log)
 }

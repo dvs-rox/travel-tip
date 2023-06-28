@@ -13,6 +13,9 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
+
+    placeService.getPlaces()
+        .then(renderPlacesList)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -26,16 +29,16 @@ function onAddPlace() {
     console.log('Adding a place')
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     console.log(window.currLatLng)
-    placeService.addPlace(window.currLatLng,'puki')
+    placeService.addPlace(window.currLatLng, 'puki')
 }
 
-function onGetLocs() {
-    locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
-        })
-}
+// function onGetLocs() {
+//     locService.getLocs()
+//         .then(locs => {
+//             console.log('Locations:', locs)
+//             document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
+//         })
+// }
 
 function onGetUserPos() {
     getPosition()
@@ -43,7 +46,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
-                //TODO: pan map to location
+            //TODO: pan map to location
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -59,12 +62,12 @@ function onPanTo(pos) {
 
 //PLACES STUFF AREA
 
-function renderPlacesList(places){
-   const strHTMLs = places.map(place=>{
+function renderPlacesList(places) {
+    const strHTMLs = places.map(place => {
         return `
         <li>
         <h4>${place.name}<h4>
-        <button onclick="onPanTo(${{lat:place.lat,lng:place.lng}})">Go</button>
+        <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
         <button onclick="onRemovePlace(${place.id})">Delete</button>
         </li>
         `
