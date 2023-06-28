@@ -45,8 +45,7 @@ function addPlace(latLng, name) {
         weather: 'mediocre',
         createdAt: Date.now()
     }
-    const res = storageService.post(PLACES_KEY, place)
-    console.log(res)
+    storageService.post(PLACES_KEY, place)
 }
 // const place = {
 //     id,

@@ -25,6 +25,7 @@ function getPosition() {
 function onAddPlace() {
     console.log('Adding a place')
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    console.log(window.currLatLng)
     placeService.addPlace(window.currLatLng,'puki')
 }
 
