@@ -4,7 +4,7 @@ export const mapService = {
     panTo
 }
 
-
+//Add queryparams integration for onload pan to sent coords
 // Var that is used throughout this Module (not global)
 var gMap
 
@@ -39,7 +39,7 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = '' //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyAEajVysYLyT8bZz3OvKrB7WvJa6_wocMs' //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true
@@ -50,3 +50,4 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+//TODO: add event listener and fucntion on click on map, to save coords(lat/lng) .3

@@ -1,5 +1,5 @@
-import { locService } from './services/loc.service.js'
-import { mapService } from './services/map.service.js'
+import { locService } from '../services/loc.service.js'
+import { mapService } from '../services/map.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -23,6 +23,8 @@ function getPosition() {
     })
 }
 
+
+
 function onAddMarker() {
     console.log('Adding a marker')
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
@@ -42,6 +44,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+                //TODO: pan map to location
         })
         .catch(err => {
             console.log('err!!!', err)
