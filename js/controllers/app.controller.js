@@ -1,4 +1,4 @@
-import { locService } from '../services/place.service.js'
+import { placeService } from '../services/place.service.js'
 import { mapService } from '../services/map.service.js'
 
 window.onload = onInit
@@ -22,9 +22,6 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
-
-
-
 function onAddMarker() {
     console.log('Adding a marker')
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
