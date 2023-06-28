@@ -54,3 +54,21 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
+
+
+//PLACES STUFF AREA
+
+
+
+//TODO: render the places list, show place info
+//in the list add buttons go and delete (CRUDL)
+// const place = {
+//     id,
+//     name,
+//     lat,
+//     lng,
+//     weather,
+//     createdAt,
+//     updatedAt
+// }
