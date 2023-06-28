@@ -44,16 +44,14 @@ function onAddPlace(ev) {
     ev.preventDefault()
     // const input = elInput = document.querySelector('.')
     const placeName = ev.target.search.value
-    console.log('Adding a place', placeName)
-    console.log('Adding a place', placeName)
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     console.log('window.currLatLng:', window.currLatLng)
     placeService.addPlace(window.currLatLng, placeName).then(res => {
-    placeService.addPlace(window.currLatLng, placeName).then(res => {
-        placeService.getPlaces().then(places => renderPlacesList(places))
+        placeService.addPlace(window.currLatLng, placeName).then(res => {
+            placeService.getPlaces().then(places => renderPlacesList(places))
 
+        })
     })
-    // renderPlacesList)
 }
 
 function onRemovePlace(placeId) {
@@ -89,7 +87,7 @@ function onPanTo(lat, lng) {
     // mapService.panTo(35.6895, 139.6917)   TO TOKYO...
 }
 
-function onSearch(ev)  {
+function onSearch(ev) {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
     searchService.searchByAddress(val)
