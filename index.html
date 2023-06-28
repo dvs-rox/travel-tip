@@ -8,10 +8,13 @@
 </head>
 
 <body>
-    <header>
-        <h1>TravelTip Starter</h1>
-        <form onsubmit="onSearch()">
-            <input type="text" name="searchTxt">
+
+    <main class="main-layout grid">
+
+        <header class="main-header">
+            <h1>TravelTip Starter</h1>
+            <form onsubmit="onSearch()">
+                <input type="text" name="searchTxt">
             <button>search</button>
         </form>
     </header>
@@ -28,11 +31,14 @@
     <section class="places-list-container">
         <h2>Locations:</h2>
         <ul class="places-list">
-
+            
         </ul>
     </section>
+    
+    <footer class="main-footer"></footer>
 
-
+</main>
+    
     <script type="module" src="js/controllers/app.controller.js"></script>
 </body>
 
