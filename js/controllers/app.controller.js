@@ -12,6 +12,8 @@ window.onCopyLink = onCopyLink
 window.onToggleModal = onToggleModal
 window.onSearch = onSearch
 
+window.markers = []
+
 function onInit() {
     document.querySelector('[name="searchTxt"]').value = ''
     console.log('window.currLatLng:', window.currLatLng)
@@ -20,8 +22,10 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
+    //panning on load
     placeService.getPlaces().then(res => {
         renderPlacesList(res)
+        renderMarkers(res)
         _panByQueryParams()
     }
     )
@@ -44,7 +48,6 @@ function onAddPlace(ev) {
     ev.preventDefault()
     // const input = elInput = document.querySelector('.')
     const placeName = ev.target.search.value
-    console.log('Adding a place', placeName)
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     console.log('window.currLatLng:', window.currLatLng)
     placeService.addPlace(window.currLatLng, placeName).then(res => {
@@ -52,7 +55,6 @@ function onAddPlace(ev) {
 
     })
     // renderPlacesList)
-    onToggleModal()
 }
 
 function onRemovePlace(placeId) {
@@ -75,7 +77,6 @@ function onGetUserPos() {
                 `
                 You Are At<br>Latitude: ${pos.coords.latitude}<br>Longitude: ${pos.coords.longitude}`
             //TODO: pan map to location
-            onPanTo(pos.coords.latitude,pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -92,9 +93,6 @@ function onSearch(ev) {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
     searchService.searchByAddress(val).then(mapService.panTo)
-    weatherService.getWeather(val).then(res=>{
-        console.log('val:', res)
-    })
 }
 
 
@@ -102,7 +100,6 @@ function onSearch(ev) {
 
 function renderPlacesList(places) {
     // let places
-    console.log(places)
     const strHTMLs = places.map(place => {
         return `
         <li>
@@ -115,11 +112,22 @@ function renderPlacesList(places) {
     document.querySelector('.places-list').innerHTML = strHTMLs.join('')
 }
 
+function renderMarkers(places) {
+    window.markers = []
+    places.forEach(place => {
+        window.markers.push(mapService.addMarker({ lat: place.lat, lng: place.lng }, place.name))
+    })
+    console.log(window.markers)
+}
+// function resetMarkers() {
+//     window.markers.forEach(marker => {
+//         marker.map=null
+//     });
+// }
 function onToggleModal() {
     console.log('modal');
     document.querySelector('.add-plc-modal').classList.toggle('show')
 }
-
 
 function _panByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
@@ -145,15 +153,3 @@ function _panByQueryParams() {
     // if (bookId) onRead(bookId)
 }
 
-
-//TODO: render the places list, show place info
-//in the list add buttons go and delete (CRUDL)
-// const place = {
-//     id,
-//     name,
-//     lat,
-//     lng,
-//     weather,
-//     createdAt,
-//     updatedAt
-// }
