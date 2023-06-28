@@ -5,6 +5,7 @@ export const mapService = {
 }
 
 //TODO: Add queryparams integration for onload pan to sent coords
+
 // Var that is used throughout this Module (not global)
 var gMap
 
@@ -18,6 +19,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 center: { lat, lng },
                 zoom: 15
             })
+            _initListeners(gMap)
             console.log('Map!', gMap)
         })
 }
@@ -51,3 +53,16 @@ function _connectGoogleApi() {
     })
 }
 //TODO: add event listener and fucntion on click on map, to save coords(lat/lng) .3
+function _initListeners(map) {
+    let infoWindow = new google.maps.InfoWindow()
+    map.addListener("click", (mapMouseEv) => {
+        infoWindow.close()
+        infoWindow = new google.maps.InfoWindow({
+            position: mapMouseEv.latLng
+        })
+        infoWindow.setContent(
+            JSON.stringify(mapMouseEv.latLng.toJSON(), null, 2)
+        )
+        infoWindow.open(map)
+    })
+}
