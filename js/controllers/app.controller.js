@@ -32,8 +32,7 @@ function onAddPlace(ev) {
 }
 
 function onRemovePlace(placeId) {
-    removePlace(placeId)
-    placeService.getPlaces().then(res => renderPlacesList(res))
+    placeService.removePlace(placeId).then(placeService.getPlaces().then(res => renderPlacesList(res)))
 }
 
 function onGetLocs() {
@@ -79,17 +78,6 @@ function renderPlacesList(places) {
             `
     })
     document.querySelector('.places-list').innerHTML = strHTMLs.join('')
-    // console.log(places)
-    // const strHTMLs = places.map(place => {
-    //     return `
-    //     <li>
-    //     <h4>${place.name}<h4>
-    //     <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
-    //     <button onclick="onRemovePlace(${place.id})">Delete</button>
-    //     </li>
-    //     `
-    // })
-    // document.querySelector('.places-list').innerHTML = strHTMLs.join('')
 }
 
 //TODO: render the places list, show place info
