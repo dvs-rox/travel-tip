@@ -2,8 +2,8 @@
     .main-layout{
         grid-template-areas:
         "header header"
-        "sidebar map-container"
-        "sidebar map-controls"
+        "sidebar map"
+        "sidebar controls"
         "footer footer"
         ;
         grid-template-columns: 1fr 3fr;
