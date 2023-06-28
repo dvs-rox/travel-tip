@@ -55,9 +55,9 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo(pos) {
+function onPanTo(lat, lng) {
     console.log('Panning the Map')
-    mapService.panTo(pos.lat, pos.lng)
+    mapService.panTo(lat, lng)
     // mapService.panTo(35.6895, 139.6917)   TO TOKYO...
 }
 
@@ -72,7 +72,7 @@ function renderPlacesList(places) {
         return `
             <li>
             <h4>${place.name}<h4>
-            <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
+            <button onclick="onPanTo( ${place.lat},${place.lng})">Go</button>
             <button onclick="onRemovePlace('${place.id}')">Delete</button>
             </li>
             `
