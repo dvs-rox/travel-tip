@@ -4,7 +4,7 @@ export const mapService = {
     panTo
 }
 
-//Add queryparams integration for onload pan to sent coords
+//TODO: Add queryparams integration for onload pan to sent coords
 // Var that is used throughout this Module (not global)
 var gMap
 
