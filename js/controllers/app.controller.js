@@ -61,8 +61,9 @@ function onGetUserPos() {
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords)
-            document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            document.querySelector('.user-pos').innerHTML =
+                `
+                You Are At<br>Latitude: ${pos.coords.latitude}<br>Longitude: ${pos.coords.longitude}`
                 //TODO: pan map to location
         })
         .catch(err => {
@@ -103,6 +104,37 @@ function renderPlacesList(places) {
 function onToggleModal(){
     console.log('modal');
     document.querySelector('.add-plc-modal').classList.toggle('show')
+}
+
+
+function renderFilterByQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+    // const filterBy = {
+    //     minRate: +queryParams.get('minrate') || 0,
+    //     maxPrice: +queryParams.get('maxprice') || 50,
+    //     txt: queryParams.get('txt') || ''
+    // }
+
+    // // if (!filterBy.minRate && !filterBy.maxPrice && !filterBy.txt) return
+    // const lang = queryParams.get('lang')
+    // setLang(lang)
+    // document.querySelector('[name="langSelect"]').value = lang
+    // toggleRTL(lang)
+
+    // updateFilterTxt(filterBy)
+    // document.querySelector('[name="minRate"]').value = filterBy.minRate
+    // document.querySelector('[name="maxPrice"]').value = filterBy.maxPrice
+    // document.querySelector('[name="filter-by-search"]').value = filterBy.txt
+    // setBookFilter(filterBy)
+    // const bookId = queryParams.get('modal')
+    // if (bookId) onRead(bookId)
+}
+
+function setQueryParams() {
+
+    // const queryParams = `?minrate=${gFilterBy.minRate}&maxprice=${gFilterBy.maxPrice}&txt=${gFilterBy.txt}&modal=${gCurrModal}&lang=${gCurrLang}`
+    // const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryParams
+    // window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 //TODO: render the places list, show place info
