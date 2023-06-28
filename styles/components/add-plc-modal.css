@@ -1,3 +1,13 @@
 .add-plc-modal{
     display: none;
+    position: fixed;
+    top: calc(100vh - var(--modalSize));
+    left: calc(100vh - var(--modalSize));
+    background-color: var(--clr2);
+    width: var(--modalSize);
+    height: var(--modalSize);
+}
+
+.add-plc-modal.show{
+    display: block;
 }

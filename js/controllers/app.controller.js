@@ -7,6 +7,8 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onRemovePlace = onRemovePlace
+window.onCopyLink = onCopyLink
+window.onToggleModal = onToggleModal
 
 function onInit() {
     mapService.initMap()
@@ -16,6 +18,11 @@ function onInit() {
         .catch(() => console.log('Error: cannot init map'))
     placeService.getPlaces().then(res => renderPlacesList(res))
 }
+
+function onCopyLink(){
+    console.log('sup');
+}
+
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
     console.log('Getting Pos')
@@ -25,10 +32,16 @@ function getPosition() {
 }
 function onAddPlace(ev) {
     ev.preventDefault()
-    console.log('Adding a place')
+    // const input = elInput = document.querySelector('.')
+    const placeName = ev.target.search.value
+    console.log('Adding a place' , placeName)
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
-    placeService.addPlace(window.currLatLng, 'puki').then(renderPlacesList)
-    placeService.getPlaces().then(res => renderPlacesList(res))
+    console.log('window.currLatLng:', window.currLatLng)
+    placeService.addPlace(window.currLatLng, placeName).then(res=>{
+        placeService.getPlaces().then(places => renderPlacesList(places))
+
+    })
+    // renderPlacesList)
 }
 
 function onRemovePlace(placeId) {
@@ -49,7 +62,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
-            //TODO: pan map to location
+                //TODO: pan map to location
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -70,14 +83,19 @@ function renderPlacesList(places) {
     console.log(places)
     const strHTMLs = places.map(place => {
         return `
-            <li>
-            <h4>${place.name}<h4>
+        <li>
+        <h4>${place.name}<h4>
             <button onclick="onPanTo( ${place.lat},${place.lng})">Go</button>
             <button onclick="onRemovePlace('${place.id}')">Delete</button>
-            </li>
-            `
+        </li>
+        `
     })
     document.querySelector('.places-list').innerHTML = strHTMLs.join('')
+}
+
+function onToggleModal(){
+    console.log('modal');
+    document.querySelector('.add-plc-modal').classList.toggle('show')
 }
 
 //TODO: render the places list, show place info
