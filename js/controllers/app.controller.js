@@ -47,7 +47,7 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo() {
+function onPanTo(pos) {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
@@ -56,7 +56,18 @@ function onPanTo() {
 
 //PLACES STUFF AREA
 
-
+function renderPlacesList(places){
+   const strHTMLs = places.map(place=>{
+        return `
+        <li>
+        <h4>${place.name}<h4>
+        <button onclick="onPanTo(${{lat:place.lat,lng:place.lng}})">Go</button>
+        <button onclick="onRemovePlace(${place.id})">Delete</button>
+        </li>
+        `
+    })
+    document.querySelector('.places-list').innerHTML = strHTMLs.join('')
+}
 
 //TODO: render the places list, show place info
 //in the list add buttons go and delete (CRUDL)
