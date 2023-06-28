@@ -63,6 +63,8 @@ function _initListeners(map) {
         infoWindow.setContent(
             JSON.stringify(mapMouseEv.latLng.toJSON(), null, 2)
         )
+        window.currLatLng = mapMouseEv.latLng
+        console.log(mapMouseEv.latLng)
         infoWindow.open(map)
     })
 }

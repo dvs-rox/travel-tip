@@ -1,11 +1,28 @@
 export const placeService = {
     getPlaces
 }
+import { utils } from '../util/utils.js'
 
 
 const places = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 }, 
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
+    {
+        id:utils.makeId(),
+        name: 'Greatplace',
+        lat: 32.047104,
+        lng: 34.832384,
+        weather:'nice',
+        createdAt:NaN,
+        updatedAt:NaN
+    },
+    {
+        id:utils.makeId(),
+        name: 'Decentplace',
+        lat: 31.047104,
+        lng: 33.832384,
+        weather:'decent',
+        createdAt:NaN,
+        updatedAt:NaN
+    }
 ]
 
 function getPlaces() {
@@ -15,6 +32,7 @@ function getPlaces() {
         }, 2000)
     })
 }
+
 
 // const place = {
 //     id,
