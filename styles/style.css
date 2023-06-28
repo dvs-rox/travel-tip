@@ -12,6 +12,7 @@
 @import url("components/footer.css");
 @import url("components/map.css");
 @import url("components/places-list.css");
+@import url("components/add-plc-modal.css");
 
 /* MQ */
 @import url("basics/mq.css");
