@@ -1,6 +1,7 @@
 export const placeService = {
     getPlaces,
-    addPlace
+    addPlace,
+    removePlace
 }
 import { utils } from '../util/utils.js'
 import { storageService } from '../services/async-storage.service.js'
