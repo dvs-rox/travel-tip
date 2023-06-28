@@ -20,8 +20,10 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
+    //panning on load
     placeService.getPlaces().then(res => {
         renderPlacesList(res)
+        renderMarkers(res)
         _panByQueryParams()
     }
     )
@@ -47,11 +49,10 @@ function onAddPlace(ev) {
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     console.log('window.currLatLng:', window.currLatLng)
     placeService.addPlace(window.currLatLng, placeName).then(res => {
-        placeService.addPlace(window.currLatLng, placeName).then(res => {
-            placeService.getPlaces().then(places => renderPlacesList(places))
+        placeService.getPlaces().then(places => renderPlacesList(places))
 
-        })
     })
+
 }
 
 function onRemovePlace(placeId) {
@@ -91,8 +92,14 @@ function onSearch(ev) {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
     searchService.searchByAddress(val)
-        .then(res => mapService.panTo(res.lat, res.lng))
+        .then(res => {
+            window.currLatLng = res
+            mapService.panTo(res.lat, res.lng)
+            return res
+        })
         .then(res => mapService.addMarker({ lat: res.lat, lng: res.lng }, val))
+
+    // window.currLatLng = marker.position
 }
 
 
@@ -112,11 +119,22 @@ function renderPlacesList(places) {
     document.querySelector('.places-list').innerHTML = strHTMLs.join('')
 }
 
+function renderMarkers(places) {
+    window.markers = []
+    places.forEach(place => {
+        window.markers.push(mapService.addMarker({ lat: place.lat, lng: place.lng }, place.name))
+    })
+    console.log(window.markers)
+}
+// function resetMarkers() {
+//     window.markers.forEach(marker => {
+//         marker.map=null
+//     });
+// }
 function onToggleModal() {
     console.log('modal');
     document.querySelector('.add-plc-modal').classList.toggle('show')
 }
-
 
 function _panByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
@@ -142,15 +160,3 @@ function _panByQueryParams() {
     // if (bookId) onRead(bookId)
 }
 
-
-//TODO: render the places list, show place info
-//in the list add buttons go and delete (CRUDL)
-// const place = {
-//     id,
-//     name,
-//     lat,
-//     lng,
-//     weather,
-//     createdAt,
-//     updatedAt
-// }
