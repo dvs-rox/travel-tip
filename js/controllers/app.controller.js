@@ -14,9 +14,8 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
-    renderPlacesList()
+    placeService.getPlaces().then(res => renderPlacesList(res))
 }
-
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
     console.log('Getting Pos')
@@ -29,12 +28,12 @@ function onAddPlace(ev) {
     console.log('Adding a place')
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     placeService.addPlace(window.currLatLng, 'puki').then(renderPlacesList)
-    // ()
+    placeService.getPlaces().then(res => renderPlacesList(res))
 }
 
 function onRemovePlace(placeId) {
     removePlace(placeId)
-    renderPlacesList()
+    placeService.getPlaces().then(res => renderPlacesList(res))
 }
 
 function onGetLocs() {
@@ -67,19 +66,30 @@ function onPanTo(pos) {
 
 //PLACES STUFF AREA
 
-function renderPlacesList() {
-    const places = placeService.getPlaces().then(res => res.data)
+function renderPlacesList(places) {
+    // let places
     console.log(places)
     const strHTMLs = places.map(place => {
         return `
-        <li>
-        <h4>${place.name}<h4>
-        <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
-        <button onclick="onRemovePlace(${place.id})">Delete</button>
-        </li>
-        `
+            <li>
+            <h4>${place.name}<h4>
+            <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
+            <button onclick="onRemovePlace('${place.id}')">Delete</button>
+            </li>
+            `
     })
     document.querySelector('.places-list').innerHTML = strHTMLs.join('')
+    // console.log(places)
+    // const strHTMLs = places.map(place => {
+    //     return `
+    //     <li>
+    //     <h4>${place.name}<h4>
+    //     <button onclick="onPanTo(${{ lat: place.lat, lng: place.lng }})">Go</button>
+    //     <button onclick="onRemovePlace(${place.id})">Delete</button>
+    //     </li>
+    //     `
+    // })
+    // document.querySelector('.places-list').innerHTML = strHTMLs.join('')
 }
 
 //TODO: render the places list, show place info
