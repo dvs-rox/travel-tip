@@ -1,4 +1,6 @@
 .main-header{
+    background-color: var(--clr4);
+    color: var(--clr5);
     display: grid;
     grid-auto-flow: column;
     align-items: center;

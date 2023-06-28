@@ -1,0 +1,17 @@
+.places-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.places-list li{
+    background-color: var(--clr4);
+    display: flex;
+    justify-content: space-between;
+    margin-inline: .5rem;
+    padding: 1rem;
+    color: var(--clr5);
+}
+.places-list li h4{
+    margin:0;
+}

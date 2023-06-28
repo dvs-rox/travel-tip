@@ -1,3 +1,4 @@
 .map-container #map{
-    
+    box-shadow: .3rem .3rem var(--clr4);
+    margin-block-end: 1rem;
 }

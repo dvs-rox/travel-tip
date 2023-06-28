@@ -5,4 +5,13 @@
 html{
     font-family: montserrat;
     color: var(--clrFont);
+    background-color: var(--clr2);
+}
+button{
+    font-size: 1.2rem;
+    color: var(--clr5);
+    background-color: var(--clr4);
+    border-radius: 1rem;
+    padding: .3rem;
+    cursor: pointer;
 }
