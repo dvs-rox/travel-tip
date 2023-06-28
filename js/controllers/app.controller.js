@@ -2,7 +2,7 @@ import { placeService } from '../services/place.service.js'
 import { mapService } from '../services/map.service.js'
 
 window.onload = onInit
-window.onAddMarker = onAddMarker
+window.onAddPlace = onAddPlace
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos

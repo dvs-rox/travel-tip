@@ -3,26 +3,28 @@ export const placeService = {
     addPlace
 }
 import { utils } from '../util/utils.js'
+import { storageService } from '../services/async-storage.service.js'
 
+const PLACES_KEY = 'placesDB'
 
 const places = [
     {
-        id:utils.makeId(),
+        id: utils.makeId(),
         name: 'Greatplace',
         lat: 32.047104,
         lng: 34.832384,
-        weather:'nice',
-        createdAt:NaN,
-        updatedAt:NaN
+        weather: 'nice',
+        createdAt: NaN,
+        updatedAt: NaN
     },
     {
-        id:utils.makeId(),
+        id: utils.makeId(),
         name: 'Decentplace',
         lat: 31.047104,
         lng: 33.832384,
-        weather:'decent',
-        createdAt:NaN,
-        updatedAt:NaN
+        weather: 'decent',
+        createdAt: NaN,
+        updatedAt: NaN
     }
 ]
 
@@ -34,15 +36,17 @@ function getPlaces() {
     })
 }
 
-function addPlace(latLng, name){
+function addPlace(latLng, name) {
     const place = {
-        id:utils.makeId,
+        id: utils.makeId,
         name,
-        lat:latLng.lat,
-        lng:latLng.lng,
-        weather:'mediocre',
+        lat: latLng.lat,
+        lng: latLng.lng,
+        weather: 'mediocre',
         createdAt: Date.now()
     }
+    const res = storageService.post(PLACES_KEY, place)
+    console.log(res)
 }
 // const place = {
 //     id,
