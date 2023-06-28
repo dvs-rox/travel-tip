@@ -1,5 +1,6 @@
 export const placeService = {
-    getPlaces
+    getPlaces,
+    addPlace
 }
 import { utils } from '../util/utils.js'
 
@@ -33,7 +34,16 @@ function getPlaces() {
     })
 }
 
-
+function addPlace(latLng, name){
+    const place = {
+        id:utils.makeId,
+        name,
+        lat:latLng.lat,
+        lng:latLng.lng,
+        weather:'mediocre',
+        createdAt: Date.now()
+    }
+}
 // const place = {
 //     id,
 //     name,

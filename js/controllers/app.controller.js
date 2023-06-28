@@ -22,9 +22,10 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
-function onAddMarker() {
-    console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+function onAddPlace() {
+    console.log('Adding a place')
+    // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    placeService.addPlace(window.currLatLng,'puki')
 }
 
 function onGetLocs() {
