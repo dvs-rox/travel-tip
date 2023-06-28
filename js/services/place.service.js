@@ -47,6 +47,10 @@ function addPlace(latLng, name) {
     }
     storageService.post(PLACES_KEY, place)
 }
+
+function removePlace(placeId){
+    storageService.remove(PLACES_KEY,placeId).then(console.log)
+}
 // const place = {
 //     id,
 //     name,
