@@ -1,5 +1,5 @@
 .main-header{
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
     align-items: center;
 }
