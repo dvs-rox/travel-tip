@@ -14,16 +14,23 @@ window.onSearch = onSearch
 window.markers = []
 
 function onInit() {
+    console.log('window.currLatLng:', window.currLatLng)
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
-    placeService.getPlaces().then(res => renderPlacesList(res))
+    placeService.getPlaces().then(res => {
+        renderPlacesList(res)
+        _panByQueryParams()
+    }
+    )
 }
 
 function onCopyLink() {
-    console.log('sup');
+    const queryParams = `?lat=${window.currLatLng.lat}&lng=${window.currLatLng.lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -38,8 +45,10 @@ function onAddPlace(ev) {
     // const input = elInput = document.querySelector('.')
     const placeName = ev.target.search.value
     console.log('Adding a place', placeName)
+    console.log('Adding a place', placeName)
     // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
     console.log('window.currLatLng:', window.currLatLng)
+    placeService.addPlace(window.currLatLng, placeName).then(res => {
     placeService.addPlace(window.currLatLng, placeName).then(res => {
         placeService.getPlaces().then(places => renderPlacesList(places))
 
@@ -67,6 +76,7 @@ function onGetUserPos() {
                 `
                 You Are At<br>Latitude: ${pos.coords.latitude}<br>Longitude: ${pos.coords.longitude}`
             //TODO: pan map to location
+            //TODO: pan map to location
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -79,7 +89,7 @@ function onPanTo(lat, lng) {
     // mapService.panTo(35.6895, 139.6917)   TO TOKYO...
 }
 
-function onSearch(ev) {
+function onSearch(ev)  {
     ev.preventDefault()
     const val = document.querySelector('input[name=searchTxt]').value
     searchService.searchByAddress(val)
@@ -110,15 +120,16 @@ function onToggleModal() {
 }
 
 
-function renderFilterByQueryParams() {
+function _panByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
-    // const filterBy = {
-    //     minRate: +queryParams.get('minrate') || 0,
-    //     maxPrice: +queryParams.get('maxprice') || 50,
-    //     txt: queryParams.get('txt') || ''
-    // }
+    const pos = {
+        lat: +queryParams.get('lat'),
+        lng: +queryParams.get('lng')
+    }
 
-    // // if (!filterBy.minRate && !filterBy.maxPrice && !filterBy.txt) return
+    if (!pos.lat && !pos.lng) return
+
+    onPanTo(pos.lat, pos.lng)
     // const lang = queryParams.get('lang')
     // setLang(lang)
     // document.querySelector('[name="langSelect"]').value = lang
@@ -133,12 +144,6 @@ function renderFilterByQueryParams() {
     // if (bookId) onRead(bookId)
 }
 
-function setQueryParams() {
-
-    // const queryParams = `?minrate=${gFilterBy.minRate}&maxprice=${gFilterBy.maxPrice}&txt=${gFilterBy.txt}&modal=${gCurrModal}&lang=${gCurrLang}`
-    // const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryParams
-    // window.history.pushState({ path: newUrl }, '', newUrl)
-}
 
 //TODO: render the places list, show place info
 //in the list add buttons go and delete (CRUDL)
