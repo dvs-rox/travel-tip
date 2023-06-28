@@ -1,14 +1,15 @@
 import { placeService } from '../services/place.service.js'
 import { mapService } from '../services/map.service.js'
+import { searchService } from '../services/search.service.js'
 
 window.onload = onInit
 window.onAddPlace = onAddPlace
 window.onPanTo = onPanTo
-window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onRemovePlace = onRemovePlace
 window.onCopyLink = onCopyLink
 window.onToggleModal = onToggleModal
+window.onSearch = onSearch
 
 function onInit() {
     mapService.initMap()
@@ -68,12 +69,18 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
+
 function onPanTo(lat, lng) {
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
     // mapService.panTo(35.6895, 139.6917)   TO TOKYO...
 }
 
+function onSearch(ev){
+    ev.preventDefault()
+    const val = document.querySelector('input[name=searchTxt]').value
+    searchService.searchByAddress(val).then(console.log)
+}
 
 
 //PLACES STUFF AREA
