@@ -8,6 +8,6 @@ export const searchService = {
 }
 function searchByAddress(str) {
     let searchParams = str.split(' ').join('+')
-    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchParams}&key=AIzaSyAEajVysYLyT8bZz3OvKrB7WvJa6_wocMs`)
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchParams}&key=AIzaSyAEajVysYLyT8bZz3OvKrB7WvJa6_wocMs`).then(res=>res.data.results[0].geometry.location)
     // console.log(searchParams)
 }
